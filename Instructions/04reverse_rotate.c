@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   04reverse_rotate.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanye <kanye@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 13:52:25 by kanye             #+#    #+#             */
-/*   Updated: 2025/03/28 15:47:48 by kanye            ###   ########.fr       */
+/*   Created: 2025/01/26 16:52:04 by kanye             #+#    #+#             */
+/*   Updated: 2025/03/15 19:24:19 by kanye            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "instructions.h"
 
-int	main(int argc, char **argv)
+void	reverse_rotate(t_stack **stack)
 {
-	t_stack	*a;
-	t_stack	*b;
+	t_stack	*penultimate_node;
+	t_stack	*last_node;
 
-	a = NULL;
-	b = NULL;
-	if (argc < 2 || (argc == 2 && !argv[1][0]))
-		return (0);
-	check_args(argc, argv);
-	init(&a, argc, argv);
-	if (!is_sorted(&a))
-		push_swap(&a, &b);
-	ft_free_stack(&a);
-	printf("\n");
-	return (0);
+	if (ft_lstsize(*stack) < 2)
+		return ;
+	penultimate_node = *stack;
+	while (penultimate_node->next->next != NULL)
+		penultimate_node = penultimate_node->next;
+	last_node = penultimate_node->next;
+	penultimate_node->next = NULL;
+	last_node->next = *stack;
+	*stack = last_node;
 }

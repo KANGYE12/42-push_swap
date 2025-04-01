@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   03rotate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanye <kanye@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 13:52:25 by kanye             #+#    #+#             */
-/*   Updated: 2025/03/28 15:47:48 by kanye            ###   ########.fr       */
+/*   Created: 2025/01/26 16:52:07 by kanye             #+#    #+#             */
+/*   Updated: 2025/03/15 19:24:13 by kanye            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "instructions.h"
 
-int	main(int argc, char **argv)
+void	rotate(t_stack **stack)
 {
-	t_stack	*a;
-	t_stack	*b;
+	t_stack	*first_node;
+	t_stack	*last_node;
 
-	a = NULL;
-	b = NULL;
-	if (argc < 2 || (argc == 2 && !argv[1][0]))
-		return (0);
-	check_args(argc, argv);
-	init(&a, argc, argv);
-	if (!is_sorted(&a))
-		push_swap(&a, &b);
-	ft_free_stack(&a);
-	printf("\n");
-	return (0);
+	if (ft_lstsize(*stack) < 2)
+		return ;
+	last_node = ft_lstlast(*stack);
+	first_node = *stack;
+	*stack = (*stack)->next;
+	last_node->next = first_node;
+	first_node->next = NULL;
 }

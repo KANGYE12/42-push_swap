@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_stacks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanye <kanye@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 13:52:25 by kanye             #+#    #+#             */
-/*   Updated: 2025/03/28 15:47:48 by kanye            ###   ########.fr       */
+/*   Created: 2025/01/25 14:30:40 by kanye             #+#    #+#             */
+/*   Updated: 2025/03/15 18:57:41 by kanye            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+void	ft_free_all(char **lst)
 {
-	t_stack	*a;
-	t_stack	*b;
+	size_t	i;
 
-	a = NULL;
-	b = NULL;
-	if (argc < 2 || (argc == 2 && !argv[1][0]))
-		return (0);
-	check_args(argc, argv);
-	init(&a, argc, argv);
-	if (!is_sorted(&a))
-		push_swap(&a, &b);
-	ft_free_stack(&a);
-	printf("\n");
-	return (0);
+	i = 0;
+	while (lst[i] != NULL)
+	{
+		free(lst[i]);
+		i++;
+	}
+	free(lst);
+}
+
+void	ft_free_stack(t_stack **lst)
+{
+	t_stack	*temporal;
+
+	if (!lst)
+		return ;
+	while (*lst != NULL)
+	{
+		temporal = (*lst)->next;
+		free(*lst);
+		*lst = temporal;
+	}
 }
